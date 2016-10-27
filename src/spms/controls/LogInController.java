@@ -4,10 +4,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import spms.bind.DataBinding;
 import spms.dao.MemberDao;
 import spms.vo.Member;
 
-public class LogInController implements Controller {
+public class LogInController implements Controller, DataBinding {
 	MemberDao memberDao;
 	
 	public LogInController setMemberDao(MemberDao memberDao) {
@@ -16,12 +17,21 @@ public class LogInController implements Controller {
 	}
 	
 	@Override
+	public Object[] getDataBinders() {
+		return new Object[] {
+				"loginInfo", spms.vo.Member.class
+		};
+	}
+	
+	@Override
 	public String execute(Map<String, Object> model) throws Exception {
-		if (model.get("loginInfo") == null) { // 입력폼을 요청할 때
+		Member loginInfo = (Member)model.get("loginInfo");
+		
+		if (loginInfo.getEmail() == null) { // 입력폼을 요청할 때
 			return "/auth/LogInForm.jsp";
       
 		} else { // 회원 등록을 요청할 때
-			Member loginInfo = (Member)model.get("loginInfo");
+			// Member loginInfo = (Member)model.get("loginInfo");
 			Member member = memberDao.exist(loginInfo.getEmail(), loginInfo.getPassword());
       
 			if (member != null) {
