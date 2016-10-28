@@ -120,7 +120,7 @@ public class MySqlMemberDao implements MemberDao {
 	    				.setName(rs.getString("MNAME"))
 	    				.setCreatedDate(rs.getDate("CRE_DATE"));
 	      } else {
-	    	  throw new Exception("ÇØ´ç ¹øÈ£ÀÇ È¸¿øÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+	    	  throw new Exception("í•´ë‹¹ ë²ˆí˜¸ì˜ íšŒì›ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 	      }
 	
 	    } catch (Exception e) {
