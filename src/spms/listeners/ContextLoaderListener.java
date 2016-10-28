@@ -8,6 +8,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 
+import spms.context.ApplicationContext;
 import spms.controls.LogInController;
 import spms.controls.LogOutController;
 import spms.controls.MemberAddController;
@@ -19,11 +20,22 @@ import spms.dao.MySqlMemberDao;
 
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {
+	static ApplicationContext applicationContext;
+	
+	public static ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
+	
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		try {
 			ServletContext sc = event.getServletContext();
       
+			String propertiesPath = sc.getRealPath(sc.getInitParameter("contextConfigLocation"));
+			applicationContext = new ApplicationContext(propertiesPath);
+			// 이제 더 이상 이 클래스를 변경할 필요가 없다!
+			
+			/*
 			InitialContext initialContext = new InitialContext();
 			DataSource ds = (DataSource)initialContext.lookup("java:comp/env/jdbc/membermanager");
       
@@ -36,7 +48,7 @@ public class ContextLoaderListener implements ServletContextListener {
 			sc.setAttribute("/member/add.do", new MemberAddController().setMemberDao(memberDao));
 			sc.setAttribute("/member/update.do", new MemberUpdateController().setMemberDao(memberDao));
 			sc.setAttribute("/member/delete.do", new MemberDeleteController().setMemberDao(memberDao));
-			
+			*/
 
 		} catch(Throwable e) {
 			e.printStackTrace();
