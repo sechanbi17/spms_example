@@ -30,7 +30,7 @@ public class MemberUpdateController implements Controller, DataBinding {
 	    if (member.getEmail() == null) { 
 	      Integer no = (Integer)model.get("no");
 	      Member detailInfo = memberDao.selectOne(no);
-	      model.put("member", member);
+	      model.put("member", detailInfo);
 	      return "/member/MemberUpdateForm.jsp";
 
 	    } else { 
