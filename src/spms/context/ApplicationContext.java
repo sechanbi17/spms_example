@@ -20,8 +20,8 @@ public class ApplicationContext {
 		Properties props = new Properties();
 		props.load(new FileReader(propertiesPath));
 		
-		// prepareObjects(props);
-		// injectDependency();
+		prepareObjects(props);
+		injectDependency();
 	}
 	
 	private void prepareObjects(Properties props) throws Exception {
