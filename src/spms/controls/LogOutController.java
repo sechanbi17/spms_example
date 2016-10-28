@@ -4,6 +4,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import spms.annotation.Component;
+
+@Component("/auth/Logout.do")
 public class LogOutController implements Controller {
 
 	@Override
