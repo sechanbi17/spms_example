@@ -31,7 +31,7 @@ public class MySqlProjectDao implements ProjectDao {
 	    	rs = stmt.executeQuery(
 	    				"SELECT PNO,PNAME,STA_DATE,END_DATE,STATE" + 
 	    				" FROM PROJECTS" +
-	    				" ORDER BY MNO DESC");
+	    				" ORDER BY PNO DESC");
 	
 	    	ArrayList<Project> projects = new ArrayList<Project>();
 	
@@ -139,6 +139,25 @@ public class MySqlProjectDao implements ProjectDao {
 	    	stmt.setInt(7, project.getNo());
 	    	
 	    	return stmt.executeUpdate();
+	
+	    } catch (Exception e) {
+	    	throw e;
+	    } finally {
+	    	try {if (stmt != null) stmt.close();} catch(Exception e) {}
+	    	try {if (connection != null) connection.close();} catch(Exception e) {}
+	    }
+	}
+
+	@Override
+	public int delete(int no) throws Exception {
+		Connection connection = null;
+	    Statement stmt = null;
+	
+	    try {
+	    	connection = ds.getConnection();
+	    	stmt = connection.createStatement();
+	    	
+	    	return stmt.executeUpdate("DELETE FROM PROJECT WHERE PNO=" + no);
 	
 	    } catch (Exception e) {
 	    	throw e;
