@@ -24,13 +24,10 @@ public class MemberAddController implements Controller, DataBinding {
 	@Override
 	public String execute(Map<String, Object> model) throws Exception {
 		Member member = (Member)model.get("member");
-		if (member.getEmail() == null) { // ÀÔ·ÂÆûÀ» ¿äÃ»ÇÒ ¶§
+		if (member.getEmail() == null) { // ì…ë ¥í¼ì„ ìš”ì²­í•  ë•Œ
 			return "/member/MemberForm.jsp";
 		
-		} else { // È¸¿ø µî·ÏÀ» ¿äÃ»ÇÒ ¶§
-			// MemberDao memberDao = (MemberDao)model.get("memberDao");
-     
-			// Member member = (Member)model.get("member");
+		} else { // íšŒì› ë“±ë¡ì„ ìš”ì²­í•  ë•Œ
 			memberDao.insert(member);
       
 			return "redirect:list.do";

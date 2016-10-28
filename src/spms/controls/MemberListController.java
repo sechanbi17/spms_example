@@ -14,11 +14,11 @@ public class MemberListController implements Controller {
 	
 	@Override
 	public String execute(Map<String, Object> model) throws Exception {
-		// ¿ÜºÎ¿¡¼­ MemberDao °´Ã¼¸¦ ÁÖÀÔ¹ŞÀ» °ÍÀÌ¶ó ÇÊ¿ä¾ø¾îÁü
-		// MemberDao memberDao = (MemberDao)model.get("memberDao"); // Map °´Ã¼¿¡¼­ MemberDao¸¦ ²¨³½´Ù.
-		model.put("members", memberDao.selectList()); // È¸¿ø ¸ñ·Ï µ¥ÀÌÅÍ¸¦ Map °´Ã¼¿¡ ÀúÀåÇÑ´Ù.
+		// ì™¸ë¶€ì—ì„œ MemberDao ê°ì²´ë¥¼ ì£¼ì…ë°›ì„ ê²ƒì´ë¼ í•„ìš”ì—†ì–´ì§
+		// MemberDao memberDao = (MemberDao)model.get("memberDao"); // Map ê°ì²´ì—ì„œ MemberDaoë¥¼ êº¼ë‚¸ë‹¤.
+		model.put("members", memberDao.selectList()); // íšŒì› ëª©ë¡ ë°ì´í„°ë¥¼ Map ê°ì²´ì— ì €ì¥í•œë‹¤.
 
-		return "/member/MemberList.jsp"; // È­¸éÀ» Ãâ·ÂÇÒ ÆäÀÌÁöÀÇ URLÀ» ¹İÈ¯ÇÑ´Ù.
+		return "/member/MemberList.jsp"; // í™”ë©´ì„ ì¶œë ¥í•  í˜ì´ì§€ì˜ URLì„ ë°˜í™˜í•œë‹¤.
 	}
 	
 }

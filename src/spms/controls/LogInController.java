@@ -27,10 +27,10 @@ public class LogInController implements Controller, DataBinding {
 	public String execute(Map<String, Object> model) throws Exception {
 		Member loginInfo = (Member)model.get("loginInfo");
 		
-		if (loginInfo.getEmail() == null) { // ÀÔ·ÂÆûÀ» ¿äÃ»ÇÒ ¶§
+		if (loginInfo.getEmail() == null) { // ì…ë ¥í¼ì„ ìš”ì²­í•  ë•Œ
 			return "/auth/LogInForm.jsp";
       
-		} else { // È¸¿ø µî·ÏÀ» ¿äÃ»ÇÒ ¶§
+		} else { // íšŒì› ë“±ë¡ì„ ìš”ì²­í•  ë•Œ
 			// Member loginInfo = (Member)model.get("loginInfo");
 			Member member = memberDao.exist(loginInfo.getEmail(), loginInfo.getPassword());
       

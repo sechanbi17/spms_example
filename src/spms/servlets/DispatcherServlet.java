@@ -22,7 +22,7 @@ import spms.controls.MemberListController;
 import spms.controls.MemberUpdateController;
 import spms.vo.Member;
 
-// Controller ±ÔÄ¢¿¡ µû¶ó ÆäÀÌÁö ÄÁÆ®·Ñ·¯¸¦ È£Ãâ
+//Controller ê·œì¹™ì— ë”°ë¼ í˜ì´ì§€ ì»¨íŠ¸ë¡¤ëŸ¬ë¥¼ í˜¸ì¶œ
 @SuppressWarnings("serial")
 @WebServlet("*.do")
 public class DispatcherServlet extends HttpServlet {
@@ -36,7 +36,7 @@ public class DispatcherServlet extends HttpServlet {
 		try {		
 			ServletContext sc = this.getServletContext();
       
-			// ÆäÀÌÁö ÄÁÆ®·Ñ·¯¿¡°Ô Àü´ŞÇÒ Map °´Ã¼¸¦ ÁØºñÇÑ´Ù. 
+			// í˜ì´ì§€ ì»¨íŠ¸ë¡¤ëŸ¬ì—ê²Œ ì „ë‹¬í•  Map ê°ì²´ë¥¼ ì¤€ë¹„í•œë‹¤.
 		    HashMap<String,Object> model = new HashMap<String,Object>();
 		    model.put("session", request.getSession());
 
@@ -46,10 +46,10 @@ public class DispatcherServlet extends HttpServlet {
 		    	prepareRequestData(request, model, (DataBinding)pageController);
 		    }
 		    
-		    // ÆäÀÌÁö ÄÁÆ®·Ñ·¯¸¦ ½ÇÇàÇÑ´Ù.
+		    // í˜ì´ì§€ ì»¨íŠ¸ë¡¤ëŸ¬ë¥¼ ì‹¤í–‰í•œë‹¤.
 		    String viewUrl = pageController.execute(model);
 
-		    // Map °´Ã¼¿¡ ÀúÀåµÈ °ªÀ» ServletRequest¿¡ º¹»çÇÑ´Ù.
+		    // Map ê°ì²´ì— ì €ì¥ëœ ê°’ì„ ServletRequestì— ë³µì‚¬í•œë‹¤.
 		    for (String key : model.keySet()) {
 		    	request.setAttribute(key, model.get(key));
 		    }

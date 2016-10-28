@@ -1,6 +1,6 @@
 package spms.listeners;
 
-// ¼­¹ö¿¡¼­ Á¦°øÇÏ´Â DataSource »ç¿ëÇÏ±â
+//ì„œë²„ì—ì„œ ì œê³µí•˜ëŠ” DataSource ì‚¬ìš©í•˜ê¸°
 import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -27,11 +27,8 @@ public class ContextLoaderListener implements ServletContextListener {
 			InitialContext initialContext = new InitialContext();
 			DataSource ds = (DataSource)initialContext.lookup("java:comp/env/jdbc/membermanager");
       
-			// MemberDao memberDao = new MemberDao();
 			MySqlMemberDao memberDao = new MySqlMemberDao();
-			memberDao.setDataSource(ds); // ÀÇÁ¸°´Ã¼ ÁÖÀÔ
-
-			// sc.setAttribute("memberDao", memberDao); // Servlet Context¿¡ ÀúÀåÇØ¼­ ¾µ ÀÏÀÌ ¾ø¾îÁü p.473
+			memberDao.setDataSource(ds); // ì˜ì¡´ê°ì²´ ì£¼ì…
 			
 			sc.setAttribute("/auth/login.do", new LogInController().setMemberDao(memberDao));
 			sc.setAttribute("/auth/logout.do", new LogOutController());

@@ -21,13 +21,13 @@ public class ServletRequestDataBinder {
 			m = findSetter(dataType, paramName);
 			if(m != null) {
 				m.invoke(dataObject, createValueObject(m.getParameterTypes()[0], request.getParameter(paramName)));
-													// ¸Å°³º¯¼ö 1. ¼ÂÅÍ ¸Ş¼­µåÀÇ ¸Å°³º¯¼ö Å¸ÀÔ 2. ¿äÃ» ¸Å°³º¯¼öÀÇ °ª 
+														// ë§¤ê°œë³€ìˆ˜ 1. ì…‹í„° ë©”ì„œë“œì˜ ë§¤ê°œë³€ìˆ˜ íƒ€ì… 2. ìš”ì²­ ë§¤ê°œë³€ìˆ˜ì˜ ê°’ 
 			}
 		}
 		return dataObject;
 	}
 	
-	// ±âº»Å¸ÀÔ È®ÀÎ
+	// ê¸°ë³¸ íƒ€ì… í™•ì¸
 	private static boolean isPrimitivieType(Class<?> type) {
 		if(type.getName().equals("int") || type == Integer.class || 
 		   type.getName().equals("long") || type == Long.class ||
@@ -35,12 +35,12 @@ public class ServletRequestDataBinder {
 		   type.getName().equals("double") || type == Double.class ||
 		   type.getName().equals("boolean") || type == Boolean.class ||
 		   type == Date.class || type == String.class) {
-			return true;
+			return true; // if ì¡°ê±´ì— ë§ìœ¼ë©´ ê¸°ë³¸ íƒ€ì…
 		}
-		return false;
+		return false; // ì•„ë‹ˆë©´ ë©¤ë²„ê°ì²´
 	}
 	
-	// ±âº» Å¸ÀÔ °´Ã¼ »ı¼º
+	// ê¸°ë³¸ íƒ€ì… ê°ì²´ ìƒì„±
 	private static Object createValueObject(Class<?> type, String value) {
 		if(type.getName().equals("int") || type == Integer.class) {
 			return new Integer(value);
