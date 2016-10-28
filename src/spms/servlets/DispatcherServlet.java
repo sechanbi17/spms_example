@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import spms.bind.DataBinding;
+import spms.bind.ServletRequestDataBinder;
 import spms.controls.Controller;
 import spms.controls.LogInController;
 import spms.controls.LogOutController;
@@ -36,42 +38,14 @@ public class DispatcherServlet extends HttpServlet {
       
 			// 페이지 컨트롤러에게 전달할 Map 객체를 준비한다. 
 		    HashMap<String,Object> model = new HashMap<String,Object>();
-		    // model.put("memberDao", sc.getAttribute("memberDao"));
 		    model.put("session", request.getSession());
-		    
-		    // Controller pageController = null;
+
 		    Controller pageController = (Controller)sc.getAttribute(servletPath);
 		    
-		    if ("/member/add.do".equals(servletPath)) {
-		    	if (request.getParameter("email") != null) {
-		    		model.put("member", new Member()
-		    								.setEmail(request.getParameter("email"))
-		    								.setPassword(request.getParameter("password"))
-		    								.setName(request.getParameter("name")));
-		    	}
-		 
-		    } else if ("/member/update.do".equals(servletPath)) {
-		    	if (request.getParameter("email") != null) {
-		    		model.put("member", new Member()
-		    								.setNo(Integer.parseInt(request.getParameter("no")))
-		    								.setEmail(request.getParameter("email"))
-		    								.setName(request.getParameter("name")));
-		    	} else {
-		    		model.put("no", new Integer(request.getParameter("no")));
-		    	}
-        
-		    } else if ("/member/delete.do".equals(servletPath)) {
-		    	model.put("no", new Integer(request.getParameter("no")));
-        
-		    } else if ("/auth/login.do".equals(servletPath)) {
-		    	if (request.getParameter("email") != null) {
-		    		model.put("loginInfo", new Member()
-		    									.setEmail(request.getParameter("email"))
-		    									.setPassword(request.getParameter("password")));
-		    	}
-       
+		    if(pageController instanceof DataBinding) {
+		    	prepareRequestData(request, model, (DataBinding)pageController);
 		    }
-
+		    
 		    // 페이지 컨트롤러를 실행한다.
 		    String viewUrl = pageController.execute(model);
 
@@ -96,4 +70,17 @@ public class DispatcherServlet extends HttpServlet {
 		}
 	}
 
+	private void prepareRequestData(HttpServletRequest request, HashMap<String, Object> model, DataBinding dataBinding) throws Exception {
+		Object[] dataBinders = dataBinding.getDataBinders();
+		String dataName = null;
+		Class<?> dataType = null;
+		Object dataObj = null;
+		
+		for(int i=0; i<dataBinders.length; i+=2) {
+			dataName = (String)dataBinders[i];
+			dataType = (Class<?>)dataBinders[i+1];
+			dataObj = ServletRequestDataBinder.bind(request, dataType, dataName);
+			model.put(dataName, dataObj);
+		}
+	}
 }
