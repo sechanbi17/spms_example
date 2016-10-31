@@ -9,9 +9,11 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import spms.annotation.Component;
 import spms.vo.Member;
 import spms.vo.Project;
 
+@Component("projectDao")
 public class MySqlProjectDao implements ProjectDao {
 	DataSource ds;
 	
@@ -93,7 +95,7 @@ public class MySqlProjectDao implements ProjectDao {
 	    	connection = ds.getConnection();
 	    	stmt = connection.createStatement();
 	    	rs = stmt.executeQuery(
-	          "SELECT PNAME,CONTENT,STA_DATE,END_DATE,STATE,CRE_DATE,TAGS FROM PROJECTS" + 
+	          "SELECT PNO,PNAME,CONTENT,STA_DATE,END_DATE,STATE,CRE_DATE,TAGS FROM PROJECTS" + 
 	          " WHERE PNO=" + no);    
 	      
 	    	if (rs.next()) {
@@ -157,7 +159,7 @@ public class MySqlProjectDao implements ProjectDao {
 	    	connection = ds.getConnection();
 	    	stmt = connection.createStatement();
 	    	
-	    	return stmt.executeUpdate("DELETE FROM PROJECT WHERE PNO=" + no);
+	    	return stmt.executeUpdate("DELETE FROM PROJECTS WHERE PNO=" + no);
 	
 	    } catch (Exception e) {
 	    	throw e;
