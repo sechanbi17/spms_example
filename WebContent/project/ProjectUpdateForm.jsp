@@ -47,9 +47,6 @@
 			<input type='button' value='삭제' onclick='location.href="delete.do?no=${project.no}";' />
 			<input type='button' value='취소' onclick='location.href="list.do"' />
 		</ul>
-		<input type="submit" value="추가">
-		<input type="reset" value="재설정">
-		<input type='button' value='취소' onclick='location.href="list.do"' />
 	</form>
 </body>
 </html>
