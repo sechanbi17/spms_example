@@ -10,7 +10,7 @@ import spms.dao.ProjectDao;
 public class ProjectListController implements Controller {
 	ProjectDao projectDao;
 	
-	public ProjectListController setProjectDao(ProjectDao projectDao) {
+	public ProjectListController setMemberDao(ProjectDao projectDao) {
 		this.projectDao = projectDao;
 		return this;
 	}
