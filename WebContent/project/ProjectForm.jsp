@@ -23,7 +23,7 @@
 		<ul>
 			<li>
 				<label for="title">제목</label>
-				<input id="title" type="text" size="50" />
+				<input id="title" name="title" type="text" size="50" />
 			</li>
 			<li>
 				<label for="content">내용</label>
