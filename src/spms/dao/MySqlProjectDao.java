@@ -38,7 +38,9 @@ public class MySqlProjectDao implements ProjectDao {
 	public int insert(Project project) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			return sqlSession.insert("spms.dao.ProjectDao.insert", project);
+			int count = sqlSession.insert("spms.dao.ProjectDao.insert", project);
+			sqlSession.commit();
+			return count;
 		} finally {
 			sqlSession.close();			
 		}
