@@ -1,5 +1,7 @@
 package spms.listeners;
 
+import java.io.InputStream;
+
 //서버에서 제공하는 DataSource 사용하기
 import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
@@ -7,6 +9,10 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import spms.context.ApplicationContext;
 import spms.controls.LogInController;
@@ -29,27 +35,23 @@ public class ContextLoaderListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		try {
+			applicationContext = new ApplicationContext();
+			
+			String resource = "spms/dao/mybatis-config.xml"; // 가장 먼저 읽을 환경설정 파일
+			InputStream inputStream = Resources.getResourceAsStream(resource);
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			
+			applicationContext.addBean("sqlSessionFactory", sqlSessionFactory);
+			
 			ServletContext sc = event.getServletContext();
-      
 			String propertiesPath = sc.getRealPath(sc.getInitParameter("contextConfigLocation"));
-			applicationContext = new ApplicationContext(propertiesPath);
-			// 이제 더 이상 이 클래스를 변경할 필요가 없다!
 			
-			/*
-			InitialContext initialContext = new InitialContext();
-			DataSource ds = (DataSource)initialContext.lookup("java:comp/env/jdbc/membermanager");
-      
-			MySqlMemberDao memberDao = new MySqlMemberDao();
-			memberDao.setDataSource(ds); // 의존객체 주입
+			applicationContext.prepareObjectsByProperties(propertiesPath);
 			
-			sc.setAttribute("/auth/login.do", new LogInController().setMemberDao(memberDao));
-			sc.setAttribute("/auth/logout.do", new LogOutController());
-			sc.setAttribute("/member/list.do", new MemberListController().setMemberDao(memberDao));
-			sc.setAttribute("/member/add.do", new MemberAddController().setMemberDao(memberDao));
-			sc.setAttribute("/member/update.do", new MemberUpdateController().setMemberDao(memberDao));
-			sc.setAttribute("/member/delete.do", new MemberDeleteController().setMemberDao(memberDao));
-			*/
-
+			applicationContext.prepareObjectByAnnotation("");
+			
+			applicationContext.injectDependency();
+			
 		} catch(Throwable e) {
 			e.printStackTrace();
 		}
