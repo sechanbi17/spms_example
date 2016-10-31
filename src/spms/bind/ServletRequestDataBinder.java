@@ -1,7 +1,7 @@
 package spms.bind;
 
 import java.lang.reflect.Method;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import javax.servlet.ServletRequest;
@@ -72,4 +72,5 @@ public class ServletRequestDataBinder {
 		}
 		return null;
 	}
+	
 }
