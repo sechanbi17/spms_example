@@ -1,5 +1,6 @@
 package spms.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -17,10 +18,10 @@ public class MySqlProjectDao implements ProjectDao {
 	}
 	
 	@Override
-	public List<Project> selectList() throws Exception {
+	public List<Project> selectList(HashMap<String, Object> paramMap) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			return sqlSession.selectList("spms.dao.ProjectDao.selectList");
+			return sqlSession.selectList("spms.dao.ProjectDao.selectList", paramMap);
 		} finally {
 			sqlSession.close();
 		}
