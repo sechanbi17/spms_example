@@ -20,7 +20,7 @@
 	</select>
 	
 	<insert id="insert" parameterType="project">
-		insert into PROJECT(PNAME,CONTENT,STA_DATE,END_DATE,STATE,CRE_DATE,TAGS)
+		insert into PROJECTS(PNAME,CONTENT,STA_DATE,END_DATE,STATE,CRE_DATE,TAGS)
 		values (#{title},#{content},#{startDate},#{endDate},0,now(),#{tags})
 	</insert>
 	
@@ -33,10 +33,11 @@
 	<update id="update" parameterType="project">
 		update PROJECTS set
 			PNAME=#{title},
-			CONTENT=#{startDate},
-			STA_DATE=#{endDate},
+			CONTENT=#{content},
+			STA_DATE=#{startDate},
+			END_DATE=#{endDate},
 			STATE=#{state},
-			TAGS=#{tags},
+			TAGS=#{tags}
 		where PNO=#{no}
 	</update>
 	
