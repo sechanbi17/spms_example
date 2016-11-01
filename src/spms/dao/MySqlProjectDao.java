@@ -1,19 +1,11 @@
 package spms.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import spms.annotation.Component;
-import spms.vo.Member;
 import spms.vo.Project;
 
 @Component("projectDao")
